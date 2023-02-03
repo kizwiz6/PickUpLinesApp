@@ -1,31 +1,44 @@
-﻿internal class Program
+﻿using PickUpLinesApp;
+using System.Xml.Linq;
+
+internal class Program
 {
     private static void Main(string[] args)
     {
-        string[] pickupLines =
-        {
-            "Are you a magician? Because whenever I look at you, everyone else disappears.",
-            "Do you have a map? Because I just got lost in your eyes.",
-            "I must be a snowflake, because I've fallen for you.",
-            "Do you have a sunburn, or are you always this hot?",
-            "If you were a vegetable, you'd be a cutecumber."
-        };
-
-        introductionText();
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.ReadLine();
-
-        Random random = new Random();
-        int lineIndex = random.Next(pickupLines.Length);
-
-        Console.WriteLine(pickupLines[lineIndex]);
-        Console.ReadLine();
-    }
-
-    static void introductionText()
-    {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("Welcome to the Pick-Up Line Generator!");
-        Console.WriteLine("Press Enter to generate a line...");
+        Console.WriteLine("Enter your name: ");
+        string name = Console.ReadLine();
+
+        User user = new User(name);
+        PickUpLineGenerator generator = new PickUpLineGenerator();
+        string pickUpLine = generator.GetPickUpLine(user);
+
+        while (true)
+        {
+            Console.WriteLine("");
+            Console.WriteLine(" ___________");
+            Console.WriteLine("< Let's go! >");
+            Console.WriteLine(" -----------");
+            Console.WriteLine("        \\   ^__^");
+            Console.WriteLine("         \\  (oo)\\_______");
+            Console.WriteLine("            (__)\\       )\\/\\");
+            Console.WriteLine("                ||----w |");
+            Console.WriteLine("                ||     ||");
+            Console.WriteLine("");
+            Console.WriteLine("Press Enter to generate a line or type 'exit' to quit...");
+            string userInput = Console.ReadLine();
+
+            if (userInput.ToLower() == "exit")
+            {
+                break;
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.ReadLine();
+            Console.WriteLine("");
+            Console.WriteLine("Here's your pick-up line:");
+            Console.WriteLine(pickUpLine);
+            Console.ReadLine();
+        }
     }
 }
